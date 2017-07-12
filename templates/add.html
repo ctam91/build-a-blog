@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>My Blog</h1>
+    <form action='/blog' method='post'>
+        <label style="display: inline-block;">
+            Title for your new blog:
+            <br>
+            <input type="text" name='title' />
+        </label>
+        <br>
+        <br>
+        Your New Blog:
+        <br>
+        <textarea name="body">Please write here... 
+        </textarea>
+        <br>
+        <br>
+        <input type="submit" value='Publish' />
+    </form>
+
+
+
+{% endblock %}
