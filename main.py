@@ -33,8 +33,8 @@ def add_post():
 
 
 
-@app.route('/', methods=['POST', 'GET'])
-def index():
+@app.route('/blog', methods=['POST', 'GET'])
+def show_blog():
 
     if request.method == 'POST':
         title_name = request.form['title']
@@ -46,6 +46,9 @@ def index():
     titles = Blog.query.all()
     return render_template('blog.html', titles=titles)
 
+@app.route('/')
+def index():
+    return redirect('/blog')
 
 if __name__ == '__main__':
     app.run()
