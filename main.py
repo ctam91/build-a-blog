@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request, redirect, render_template, flash
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -27,6 +27,10 @@ def add_post():
         new_title = Blog(title_name, body_name)
         db.session.add(new_title)
         db.session.commit()
+        if title_name == "":
+            flash("Please fill in the title")
+        if body_name == "":
+            flash("Please fill in the body")
 
     titles = Blog.query.all()
     return render_template('add.html', titles=titles)
