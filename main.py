@@ -58,7 +58,7 @@ def blog():
         post = Blog.query.filter_by(id=blog_id).first()
         return render_template("post.html", post=post.title, body=post.body)
     
-# If no specific blog selected, show all blogs
+# If there are no specific posts, show entire blog. 
     titles = Blog.query.all()
     return render_template('blog.html',titles=titles)
 
