@@ -28,11 +28,11 @@ def newpost():
         title_error = ""
         body_error = ""
 
-        if len(title) < 1: 
+        if title == "": 
             title_error = "Please fill in the title"
             body = ""
 
-        if len(body) < 1:
+        if body == "":
             body_error = "Please fill in the body"
             title = ""
             
