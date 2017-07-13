@@ -1,0 +1,28 @@
+
+hr {
+    color: lightgray; 
+}
+
+textarea {
+    font-family: "Serif", "Times New Roman";
+    font-size: 1em; 
+}
+
+input {
+    font-family: "Serif", "Times New Roman";
+    font-size: 1em;
+}
+
+.error{
+    color: red; 
+    font-style: italic;
+}
+
+.button{
+    padding-right: 1em;
+}
+
+h1 {
+    color: grey; 
+}
+
