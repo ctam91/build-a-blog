@@ -48,21 +48,19 @@ def newpost():
 
 
 @app.route('/blog', methods=['POST', 'GET'])
-def show_blog():
+def blog():
 
-    if request.method == 'POST':
-        title = request.form['title']
-        body = request.form['body']
+    #since this is a get request, use request.args.get to retrieve id of blog post
+    blog_id = request.args.get('id')
 
-        if title and body:
-            new_post = Blog(title, body)
-            db.session.add(new_post)
-            db.session.commit()
-        else:
-            pass
-
+    #if blog_id exists, send your db a query and find the post associated with that id. Render post.html with that post's title and blog
+    if blog_id:
+        post = Blog.query.filter_by(id=blog_id).first()
+        return render_template("post.html", post=post.title, body=post.body)
+    
+# If no specific blog selected, show all blogs
     titles = Blog.query.all()
-    return render_template('blog.html', titles=titles)
+    return render_template('blog.html',titles=titles)
 
 @app.route('/')
 def index():
