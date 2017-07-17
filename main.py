@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request, redirect, render_template, flash
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -8,6 +8,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:blog@local
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
+app.secret_key = 'itsasecret'
 
 #create a Blog class with id, title, body, and pub_date properties
 class Blog(db.Model):
@@ -29,26 +30,21 @@ def newpost():
     if request.method == 'POST':
         title = request.form['title']
         body = request.form['body']
-        
-        title_error = ""
-        body_error = ""
 
-        if len(title) < 1: 
-            title_error = "Please fill in the title"
-            body = ""
+        if title == "":
+            flash("Please fill in the title", "error")
 
-        if len(body) < 1:
-            body_error = "Please fill in the body"
-            title = ""
-            
-        if not title_error and not body_error:   
+        if body == "":
+            flash("Please fill in the body", "error")
+
+        if len(title) > 1 and len(body) > 1:  
             new_post = Blog(title, body)
             db.session.add(new_post)
             db.session.commit()
             blog_id = str(new_post.id) #grab the id for the record you just created
             return redirect('/blog?id='+blog_id)
         else: 
-            return render_template('add.html', title_error=title_error, body_error=body_error, title=title, body=body)
+            return render_template('add.html', title=title, body=body)
         
     return render_template('add.html')
 
